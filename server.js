@@ -7,9 +7,6 @@ const cors = require('cors');
 
 const app = express();
 
-const PORT = process.env.PORT || 3001; // Render автоматически подставляет свой PORT
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 app.use(express.json());
 app.use(cors());
 
@@ -87,5 +84,5 @@ function authenticateToken(req, res, next) {
   });
 }
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
