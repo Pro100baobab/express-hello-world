@@ -85,4 +85,17 @@ function authenticateToken(req, res, next) {
 }
 
 const PORT = process.env.PORT || 3001;
+// Health check endpoint (обязательно для Render)
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    status: 'running',
+    message: 'Auth API is working',
+    endpoints: {
+      register: 'POST /register',
+      login: 'POST /login',
+      profile: 'GET /profile'
+    }
+  });
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
