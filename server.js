@@ -68,7 +68,15 @@ app.post('/login', async (req, res) => {
 
 // Проверка токена (для защищённых маршрутов)
 app.get('/profile', authenticateToken, async (req, res) => {
-  res.json({ userId: req.userId });
+    try {
+        const result = await pool.query(
+            'SELECT id FROM users WHERE id = $1', 
+            [req.userId]
+        );
+        res.json({ userId: result.rows[0].id });
+    } catch (error) {
+        res.status(500).json({ error: 'Database error' });
+    }
 });
 
 function authenticateToken(req, res, next) {
